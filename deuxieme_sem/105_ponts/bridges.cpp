@@ -62,7 +62,7 @@ void dfs (short v, short p = -1)
     {
 		short to = adjLists[v][i].first;
 
-		if (to == p)  
+		if (to == p)
             continue;
 
 		if (visited[to])
