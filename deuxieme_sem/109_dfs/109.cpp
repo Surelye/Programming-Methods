@@ -103,7 +103,7 @@ int main ()
 
 #include <iostream>
 #include <vector>
- 
+
 using namespace std;
 
 short vertexFrom, vertexTo;
@@ -128,56 +128,56 @@ void inputMatrix (vector<vector<short>>& matrix, short dimension)
     }
 }
 
-void dfs (vector<vector<short>> matrix, short vertFrom) 
+void dfs (vector<vector<short>> matrix, short vertFrom)
 {
     visited[vertFrom] = true;
 
-    for (short i = 0; i < matrix[vertFrom].size (); ++i)    
-        if (matrix[vertFrom][i] && !visited[i]) 
+    for (short i = 0; i < matrix[vertFrom].size (); ++i)
+      if (matrix[vertFrom][i] && !visited[i])
         {
-            sequence[i] = vertFrom;
-            dfs (matrix, i);
+          sequence[i] = vertFrom;
+          dfs (matrix, i);
         }
 }
- 
+
 void extractPath ()
 {
-    short i;
+  short i;
 
-    while (sequence[vertexTo] != -1) 
+  while (sequence[vertexTo] != -1)
     {
-        path.push_back (vertexTo);
-        vertexTo = sequence[vertexTo];
+      path.push_back (vertexTo);
+      vertexTo = sequence[vertexTo];
     }
- 
-    if (vertexFrom == vertexTo) 
-        path.push_back (vertexTo);
-    else 
-    {
-        cout << -1;
-        return;
-    }
- 
-    cout << path.size () - 1 << "\n";
 
-    for (i = path.size () - 1; i >= 0; --i)
-        cout << path[i] + 1 << " ";
+  if (vertexFrom == vertexTo)
+    path.push_back (vertexTo);
+  else
+    {
+      cout << -1;
+      return;
+    }
+
+  cout << path.size () - 1 << "\n";
+
+  for (i = path.size () - 1; i >= 0; --i)
+    cout << path[i] + 1 << " ";
 }
 
-int main () 
+int main ()
 {
-    short dimension;
-    vector<vector<short>> matrix;
+  short dimension;
+  vector<vector<short>> matrix;
 
-    cin >> dimension >> vertexFrom >> vertexTo;
-    --vertexTo;
+  cin >> dimension >> vertexFrom >> vertexTo;
+  --vertexTo;
 
-    visited.assign (dimension, false);
-    sequence.assign (dimension, -1);
+  visited.assign (dimension, false);
+  sequence.assign (dimension, -1);
 
-    inputMatrix (matrix, dimension);
-    dfs (matrix, --vertexFrom);
-    extractPath ();    
- 
-    return (EXIT_SUCCESS);
+  inputMatrix (matrix, dimension);
+  dfs (matrix, --vertexFrom);
+  extractPath ();
+
+  return (EXIT_SUCCESS);
 }

@@ -13,28 +13,28 @@ vector<edge> edges;
 
 void displayEdges ()
 {
-    for (int i = 0; i < numberOfEdges; ++i)
-        cout << "<" << edges[i].vFrom << "->" << edges[i].vTo << " : " << edges[i].weight << ">" << (i == numberOfEdges - 1 ? "." : ", ");
-    
-    cout << '\n';
+  for (int i = 0; i < numberOfEdges; ++i)
+    cout << "<" << edges[i].vFrom << "->" << edges[i].vTo << " : " << edges[i].weight << ">" << (i == numberOfEdges - 1 ? "." : ", ");
+
+  cout << '\n';
 }
 
 void getEdges ()
 {
-    int i;
-    short vFrom, vTo, weight;
+  int i;
+  short vFrom, vTo, weight;
 
-    for (i = 0; i < numberOfEdges; ++i)
+  for (i = 0; i < numberOfEdges; ++i)
     {
-        cin >> vFrom >> vTo >> weight;
-        edges[i] = { vFrom, vTo, weight };
+      cin >> vFrom >> vTo >> weight;
+      edges[i] = { vFrom, vTo, weight };
     }
 }
 
 void FordBellmanAlgorithmMachinerie ()
 {
-    int i, j;
-    vector<int> dist (numberOfVertices + 1, INF);
+  int i, j;
+  vector<int> dist (numberOfVertices + 1, INF);
 
 	dist[1] = 0;
 
@@ -42,24 +42,24 @@ void FordBellmanAlgorithmMachinerie ()
 		for (j = 0; j < numberOfEdges; ++j)
 			if (dist[edges[j].vFrom] < INF)
 				dist[edges[j].vTo] = min (dist[edges[j].vTo], dist[edges[j].vFrom] + edges[j].weight);
-	
-    for (i = 2; i <= numberOfVertices; ++i)
-        if (dist[i] == INF) cout << "NO\n";
-        else cout << dist[i] << '\n';
+
+  for (i = 2; i <= numberOfVertices; ++i)
+    if (dist[i] == INF) cout << "NO\n";
+    else cout << dist[i] << '\n';
 }
 
 void FordBellmanAlgorithm ()
 {
-    cin >> numberOfVertices >> numberOfEdges;
-    edges.assign (numberOfEdges, edge ());
+  cin >> numberOfVertices >> numberOfEdges;
+  edges.assign (numberOfEdges, edge ());
 
-    getEdges ();
-    FordBellmanAlgorithmMachinerie ();
+  getEdges ();
+  FordBellmanAlgorithmMachinerie ();
 }
 
 int main ()
 {
-    FordBellmanAlgorithm ();
+  FordBellmanAlgorithm ();
 
-    return (EXIT_SUCCESS);
+  return (EXIT_SUCCESS);
 }

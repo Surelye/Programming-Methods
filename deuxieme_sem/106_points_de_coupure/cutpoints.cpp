@@ -14,58 +14,53 @@ set<short> cutpoints;
 
 void displayAdjLists ()
 {
-    int i, j;
+  int i, j;
 
-    for (i = 1; i <= numberOfVertices; ++i)
+  for (i = 1; i <= numberOfVertices; ++i)
     {
-        cout << i << ": ";
-
-        for (j = 0; j < adjLists[i].size (); ++j)
-            cout << adjLists[i][j] << (j == adjLists[i].size () - 1 ? "." : ", ");
-
-        cout << '\n';
+      cout << i << ": ";
+      for (j = 0; j < adjLists[i].size (); ++j)
+        cout << adjLists[i][j] << (j == adjLists[i].size () - 1 ? "." : ", ");
+      cout << '\n';
     }
 }
 
 void getAdjLists ()
 {
-    int i, fVer, sVer;
+  int i, fVer, sVer;
 
-    for (i = 0; i < numberOfEdges; ++i)
+  for (i = 0; i < numberOfEdges; ++i)
     {
-        cin >> fVer >> sVer;
-
-        adjLists[fVer].push_back (sVer);
-        adjLists[sVer].push_back (fVer);
+      cin >> fVer >> sVer;
+      adjLists[fVer].push_back (sVer);
+      adjLists[sVer].push_back (fVer);
     }
 }
 
-void dfs (int v, int p = -1) 
+void dfs (int v, int p = -1)
 {
 	visited[v] = true;
 	tin[v] = fup[v] = timer++;
 	int children = 0;
 
-	for (int i = 0; i < adjLists[v].size(); ++i) 
+	for (int i = 0; i < adjLists[v].size(); ++i)
     {
-		int to = adjLists[v][i];
+      int to = adjLists[v][i];
 
-		if (to == p) 
-            continue;
-
-		if (visited[to])
-			fup[v] = min (fup[v], tin[to]);
-		else 
+      if (to == p)
+        continue;
+      if (visited[to])
+        fup[v] = min (fup[v], tin[to]);
+      else
         {
-			dfs (to, v);
-			fup[v] = min (fup[v], fup[to]);
+          dfs (to, v);
+          fup[v] = min (fup[v], fup[to]);
 
-			if (fup[to] >= tin[v] && p != -1)
-				cutpoints.insert (v);
-
-			++children;
-		}
-	}
+          if (fup[to] >= tin[v] && p != -1)
+            cutpoints.insert (v);
+          ++children;
+        }
+    }
 
 	if (p == -1 && children > 1)
 		cutpoints.insert (v);
@@ -73,26 +68,26 @@ void dfs (int v, int p = -1)
 
 void getCutpoints ()
 {
-    cin >> numberOfVertices >> numberOfEdges;
+  cin >> numberOfVertices >> numberOfEdges;
 
-    adjLists.assign (numberOfVertices + 1, vector<short> ());
-    getAdjLists ();
+  adjLists.assign (numberOfVertices + 1, vector<short> ());
+  getAdjLists ();
 
-    visited.assign (numberOfVertices + 1, false);
-    tin.assign (numberOfVertices + 1, 0), fup.assign (numberOfVertices + 1, 0);
+  visited.assign (numberOfVertices + 1, false);
+  tin.assign (numberOfVertices + 1, 0), fup.assign (numberOfVertices + 1, 0);
 
-    dfs (1);
+  dfs (1);
 
-    cout << cutpoints.size () << '\n';
-    for (auto cutpoint : cutpoints)
-        cout << cutpoint << ' ';
+  cout << cutpoints.size () << '\n';
+  for (auto cutpoint : cutpoints)
+    cout << cutpoint << ' ';
 
-    cout << '\n';
+  cout << '\n';
 }
 
 int main ()
 {
-    getCutpoints ();
+  getCutpoints ();
 
-    return (EXIT_SUCCESS);
+  return (EXIT_SUCCESS);
 }

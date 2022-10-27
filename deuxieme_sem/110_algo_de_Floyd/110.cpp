@@ -8,36 +8,36 @@ int numberOfVertices;
 void getWeightMatrix (vector<vector<int>>& weightMatrix)
 {
 	int i, j, weightPlaceholder;
-    
-  	for (i = 0; i < numberOfVertices; ++i)
+
+  for (i = 0; i < numberOfVertices; ++i)
   	{
     	vector<int> rowPlaceholder;
-      
+
 	    for (j = 0; j < numberOfVertices; ++j)
-	    {
-			cin >> weightPlaceholder;
+        {
+          cin >> weightPlaceholder;
 
-			if (weightPlaceholder == 0)
+          if (weightPlaceholder == 0)
 	      		rowPlaceholder.push_back (10e6 + 1);
-			else rowPlaceholder.push_back (weightPlaceholder);
-	    }
+          else rowPlaceholder.push_back (weightPlaceholder);
+        }
 
-      	weightMatrix.push_back (rowPlaceholder);
+      weightMatrix.push_back (rowPlaceholder);
     }
 }
 
 void displayMatrix (vector<vector<int>> Matrix)
 {
-  	int i, j;
+  int i, j;
 
-  	for (i = 0; i < numberOfVertices; ++i)
+  for (i = 0; i < numberOfVertices; ++i)
   	{
     	for (j = 0; j < numberOfVertices; ++j)
-			if (Matrix[i][j] == 10e6 + 1)
-				cout << 0 << " ";
-			else cout << Matrix[i][j] << " ";
+        if (Matrix[i][j] == 10e6 + 1)
+          cout << 0 << " ";
+        else cout << Matrix[i][j] << " ";
 
-      	cout << "\n";
+      cout << "\n";
     }
 }
 
@@ -53,15 +53,15 @@ void floyd (vector<vector<int>>& pathMat)
 
 int main ()
 {
-  	vector<vector<int>> weightMatrix;
+  vector<vector<int>> weightMatrix;
 
-  	cin >> numberOfVertices;
-  
-  	getWeightMatrix (weightMatrix);
-	floyd (weightMatrix);
-	displayMatrix (weightMatrix);
+  cin >> numberOfVertices;
 
-  	return (EXIT_SUCCESS);
+  getWeightMatrix (weightMatrix);
+  floyd (weightMatrix);
+  displayMatrix (weightMatrix);
+
+  return (EXIT_SUCCESS);
 }
 
 /*
